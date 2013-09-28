@@ -168,7 +168,7 @@ PHP_FUNCTION(confirm_hello_compiled)
 /* {{{ return 'world', only for example. */
 PHP_FUNCTION(hello)
 {
-	char *str
+	char *str;
 
 	str = estrdup("world");
 	RETURN_STRING(str, 0);

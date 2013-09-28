@@ -27,3 +27,4 @@ run-tests.php
 .libs/
 modules/
 *.o
+*.loT

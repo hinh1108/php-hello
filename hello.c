@@ -39,7 +39,7 @@ static int le_hello;
  * Every user visible function must have an entry in hello_functions[].
  */
 const zend_function_entry hello_functions[] = {
-	PHP_FE(confirm_hello_compiled,	NULL)		/* For testing, remove later. */
+	PHP_FE(hello_world, NULL)
 	PHP_FE_END	/* Must be the last line in hello_functions[] */
 };
 /* }}} */
@@ -149,31 +149,15 @@ PHP_MINFO_FUNCTION(hello)
    purposes. */
 
 /* Every user-visible function in PHP should document itself in the source */
-/* {{{ proto string confirm_hello_compiled(string arg)
-   Return a string to confirm that the module is compiled in */
-PHP_FUNCTION(confirm_hello_compiled)
-{
-	char *arg = NULL;
-	int arg_len, len;
-	char *strg;
-
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &arg, &arg_len) == FAILURE) {
-		return;
-	}
-
-	len = spprintf(&strg, 0, "Congratulations! You have successfully modified ext/%.78s/config.m4. Module %.78s is now compiled into PHP.", "hello", arg);
-	RETURN_STRINGL(strg, len, 0);
-}
-/* }}} */
-/* {{{ return 'world', only for example. */
-PHP_FUNCTION(hello)
+/* {{{ return 'hello world', only for example. */
+PHP_FUNCTION(hello_world)
 {
 	char *str;
 
-	str = estrdup("world");
+	str = estrdup("Hello World!");
 	RETURN_STRING(str, 0);
 }
-/*}}}*/
+/* }}} */
 /* The previous line is meant for vim and emacs, so it can correctly fold and 
    unfold functions in source code. See the corresponding marks just before 
    function definition, where the functions purpose is also documented. Please 

@@ -54,11 +54,11 @@ zend_module_entry hello_module_entry = {
 	hello_functions,
 	PHP_MINIT(hello),
 	PHP_MSHUTDOWN(hello),
-	PHP_RINIT(hello),		/* Replace with NULL if there's nothing to do at request start */
-	PHP_RSHUTDOWN(hello),	/* Replace with NULL if there's nothing to do at request end */
+	PHP_RINIT(hello),
+	PHP_RSHUTDOWN(hello),
 	PHP_MINFO(hello),
 #if ZEND_MODULE_API_NO >= 20010901
-	"0.0.2", /* Replace with version number for your extension */
+	"0.0.2",
 #endif
 	STANDARD_MODULE_PROPERTIES
 };

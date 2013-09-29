@@ -30,11 +30,7 @@ $ make && make install
 
 ## Example
 
-```php
-$ php -r "echo hello_world();"
-```
-
-Or just run
+just run
 
 ```
 $ php hello.php

@@ -23,5 +23,11 @@ if (extension_loaded($module)) {
         echo hello_long() . " ";
     }
     echo "\n";
+    echo "now we change direction by ini_set('hello.direction', 0), counter minus 1 every time:\n";
+    ini_set('hello.direction', 0);
+    for ($i=0; $i<10; $i++) {
+        echo hello_long() . " ";
+    }
+    echo "\n";
 }
 ?>

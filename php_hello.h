@@ -53,6 +53,7 @@ PHP_FUNCTION(hello_long);
 */
 ZEND_BEGIN_MODULE_GLOBALS(hello)
 	long counter;
+  zend_bool direction;
 ZEND_END_MODULE_GLOBALS(hello)
 
 

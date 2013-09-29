@@ -71,10 +71,7 @@ ZEND_GET_MODULE(hello)
 /* {{{ PHP_INI
  */
 PHP_INI_BEGIN()
-    /* test PHP_INI first
-    STD_PHP_INI_ENTRY("hello.global_value",      "42", PHP_INI_ALL, OnUpdateLong, global_value, zend_hello_globals, hello_globals)
-    STD_PHP_INI_ENTRY("hello.global_string", "Hello World!", PHP_INI_ALL, OnUpdateString, global_string, zend_hello_globals, hello_globals)
-	*/
+    STD_PHP_INI_ENTRY("hello.direction", "1", PHP_INI_ALL, OnUpdateBool, direction, zend_hello_globals, hello_globals)
 	PHP_INI_ENTRY("hello.greeting", "Hello World", PHP_INI_ALL, NULL)
 PHP_INI_END()
 /* }}} */
@@ -83,7 +80,7 @@ PHP_INI_END()
  */
 static void php_hello_init_globals(zend_hello_globals *hello_globals)
 {
-
+	hello_globals->direction = 1;
 }
 /* }}} */
 
@@ -153,7 +150,11 @@ PHP_FUNCTION(hello_world)
  */
 PHP_FUNCTION(hello_long)
 {
-    HELLO_G(counter)++;
+    if (HELLO_G(direction)) {
+        HELLO_G(counter)++;
+    } else {
+        HELLO_G(counter)--;
+    }
     RETURN_LONG(HELLO_G(counter));
 }
 /* }}} */

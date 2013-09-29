@@ -46,15 +46,15 @@ PHP_RSHUTDOWN_FUNCTION(hello);
 PHP_MINFO_FUNCTION(hello);
 
 PHP_FUNCTION(hello_world);
+PHP_FUNCTION(hello_long);
 /* 
-  	Declare any global variables you may need between the BEGIN
+  Declare any global variables you may need between the BEGIN
 	and END macros here:     
-
-ZEND_BEGIN_MODULE_GLOBALS(hello)
-	long  global_value;
-	char *global_string;
-ZEND_END_MODULE_GLOBALS(hello)
 */
+ZEND_BEGIN_MODULE_GLOBALS(hello)
+	long counter;
+ZEND_END_MODULE_GLOBALS(hello)
+
 
 /* In every utility function you add that needs to use variables 
    in php_hello_globals, call TSRMLS_FETCH(); after declaring other 

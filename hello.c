@@ -27,9 +27,8 @@
 #include "ext/standard/info.h"
 #include "php_hello.h"
 
-/* If you declare any globals in php_hello.h uncomment this:
 ZEND_DECLARE_MODULE_GLOBALS(hello)
-*/
+
 
 /* True global resources - no need for thread safety here */
 static int le_hello;
@@ -40,6 +39,7 @@ static int le_hello;
  */
 const zend_function_entry hello_functions[] = {
 	PHP_FE(hello_world, NULL)
+	PHP_FE(hello_long, NULL)
 	PHP_FE_END	/* Must be the last line in hello_functions[] */
 };
 /* }}} */
@@ -81,19 +81,17 @@ PHP_INI_END()
 
 /* {{{ php_hello_init_globals
  */
-/* Uncomment this function if you have INI entries
 static void php_hello_init_globals(zend_hello_globals *hello_globals)
 {
-	hello_globals->global_value = 0;
-	hello_globals->global_string = NULL;
+
 }
-*/
 /* }}} */
 
 /* {{{ PHP_MINIT_FUNCTION
  */
 PHP_MINIT_FUNCTION(hello)
 {
+	ZEND_INIT_MODULE_GLOBALS(hello, php_hello_init_globals, NULL);
 	REGISTER_INI_ENTRIES();
 	
 	return SUCCESS;
@@ -110,11 +108,11 @@ PHP_MSHUTDOWN_FUNCTION(hello)
 }
 /* }}} */
 
-/* Remove if there's nothing to do at request start */
 /* {{{ PHP_RINIT_FUNCTION
  */
 PHP_RINIT_FUNCTION(hello)
 {
+	HELLO_G(counter) = 0;
 	return SUCCESS;
 }
 /* }}} */
@@ -142,17 +140,21 @@ PHP_MINFO_FUNCTION(hello)
 }
 /* }}} */
 
-
-/* Remove the following function when you have successfully modified config.m4
-   so that your module can be compiled into PHP, it exists only for testing
-   purposes. */
-
 /* Every user-visible function in PHP should document itself in the source */
 /* {{{ return 'hello world', only for example. 
  */
 PHP_FUNCTION(hello_world)
 {
 	RETURN_STRING(INI_STR("hello.greeting"), 1);
+}
+/* }}} */
+
+/* {{{ return COUNTER++. 
+ */
+PHP_FUNCTION(hello_long)
+{
+    HELLO_G(counter)++;
+    RETURN_LONG(HELLO_G(counter));
 }
 /* }}} */
 /* The previous line is meant for vim and emacs, so it can correctly fold and 

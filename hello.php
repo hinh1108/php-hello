@@ -14,5 +14,10 @@ echo "$br\n";
 if (extension_loaded($module)) {
 	echo hello_world();
 	echo "\n";
+
+	echo "we can set return value by ini_set('hello.greeting', 'World Hello')";
+	ini_set('hello.greeting', 'World Hello');
+	echo hello_world();
+	echo "\n";
 }
 ?>

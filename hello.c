@@ -77,8 +77,6 @@ PHP_INI_BEGIN()
 	*/
 	PHP_INI_ENTRY("hello.greeting", "Hello World", PHP_INI_ALL, NULL)
 PHP_INI_END()
-    
-
 /* }}} */
 
 /* {{{ php_hello_init_globals
@@ -150,7 +148,8 @@ PHP_MINFO_FUNCTION(hello)
    purposes. */
 
 /* Every user-visible function in PHP should document itself in the source */
-/* {{{ return 'hello world', only for example. */
+/* {{{ return 'hello world', only for example. 
+ */
 PHP_FUNCTION(hello_world)
 {
 	RETURN_STRING(INI_STR("hello.greeting"), 1);

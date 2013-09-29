@@ -2,7 +2,7 @@
 $br = (php_sapi_name() == "cli")? "":"<br>";
 
 if(!extension_loaded('hello')) {
-	dl('hello.' . PHP_SHLIB_SUFFIX);
+    dl('hello.' . PHP_SHLIB_SUFFIX);
 }
 $module = 'hello';
 $functions = get_extension_funcs($module);

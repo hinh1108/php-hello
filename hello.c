@@ -58,7 +58,7 @@ zend_module_entry hello_module_entry = {
 	PHP_RSHUTDOWN(hello),	/* Replace with NULL if there's nothing to do at request end */
 	PHP_MINFO(hello),
 #if ZEND_MODULE_API_NO >= 20010901
-	"0.1", /* Replace with version number for your extension */
+	"0.0.2", /* Replace with version number for your extension */
 #endif
 	STANDARD_MODULE_PROPERTIES
 };
@@ -70,12 +70,15 @@ ZEND_GET_MODULE(hello)
 
 /* {{{ PHP_INI
  */
-/* Remove comments and fill if you need to have entries in php.ini
 PHP_INI_BEGIN()
+    /* test PHP_INI first
     STD_PHP_INI_ENTRY("hello.global_value",      "42", PHP_INI_ALL, OnUpdateLong, global_value, zend_hello_globals, hello_globals)
-    STD_PHP_INI_ENTRY("hello.global_string", "foobar", PHP_INI_ALL, OnUpdateString, global_string, zend_hello_globals, hello_globals)
+    STD_PHP_INI_ENTRY("hello.global_string", "Hello World!", PHP_INI_ALL, OnUpdateString, global_string, zend_hello_globals, hello_globals)
+	*/
+	PHP_INI_ENTRY("hello.greeting", "Hello World", PHP_INI_ALL, NULL)
 PHP_INI_END()
-*/
+    
+
 /* }}} */
 
 /* {{{ php_hello_init_globals
@@ -93,9 +96,8 @@ static void php_hello_init_globals(zend_hello_globals *hello_globals)
  */
 PHP_MINIT_FUNCTION(hello)
 {
-	/* If you have INI entries, uncomment these lines 
 	REGISTER_INI_ENTRIES();
-	*/
+	
 	return SUCCESS;
 }
 /* }}} */
@@ -104,9 +106,8 @@ PHP_MINIT_FUNCTION(hello)
  */
 PHP_MSHUTDOWN_FUNCTION(hello)
 {
-	/* uncomment this line if you have INI entries
 	UNREGISTER_INI_ENTRIES();
-	*/
+	
 	return SUCCESS;
 }
 /* }}} */
@@ -152,10 +153,7 @@ PHP_MINFO_FUNCTION(hello)
 /* {{{ return 'hello world', only for example. */
 PHP_FUNCTION(hello_world)
 {
-	char *str;
-
-	str = estrdup("Hello World!");
-	RETURN_STRING(str, 0);
+	RETURN_STRING(INI_STR("hello.greeting"), 1);
 }
 /* }}} */
 /* The previous line is meant for vim and emacs, so it can correctly fold and 

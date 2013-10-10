@@ -47,6 +47,7 @@ PHP_MINFO_FUNCTION(hello);
 
 PHP_FUNCTION(hello_world);
 PHP_FUNCTION(hello_long);
+PHP_FUNCTION(hello_greetme);
 /* 
   Declare any global variables you may need between the BEGIN
 	and END macros here:     

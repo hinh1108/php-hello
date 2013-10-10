@@ -38,9 +38,10 @@ static int le_hello;
  * Every user visible function must have an entry in hello_functions[].
  */
 const zend_function_entry hello_functions[] = {
-	PHP_FE(hello_world, NULL)
-	PHP_FE(hello_long, NULL)
-	PHP_FE_END	/* Must be the last line in hello_functions[] */
+    PHP_FE(hello_world, NULL)
+    PHP_FE(hello_long, NULL)
+    PHP_FE(hello_greetme, NULL)
+    PHP_FE_END  /* Must be the last line in hello_functions[] */
 };
 /* }}} */
 
@@ -48,19 +49,19 @@ const zend_function_entry hello_functions[] = {
  */
 zend_module_entry hello_module_entry = {
 #if ZEND_MODULE_API_NO >= 20010901
-	STANDARD_MODULE_HEADER,
+    STANDARD_MODULE_HEADER,
 #endif
-	"hello",
-	hello_functions,
-	PHP_MINIT(hello),
-	PHP_MSHUTDOWN(hello),
-	PHP_RINIT(hello),
-	PHP_RSHUTDOWN(hello),
-	PHP_MINFO(hello),
+    "hello",
+    hello_functions,
+    PHP_MINIT(hello),
+    PHP_MSHUTDOWN(hello),
+    PHP_RINIT(hello),
+    PHP_RSHUTDOWN(hello),
+    PHP_MINFO(hello),
 #if ZEND_MODULE_API_NO >= 20010901
-	"0.0.2",
+    "0.0.2",
 #endif
-	STANDARD_MODULE_PROPERTIES
+    STANDARD_MODULE_PROPERTIES
 };
 /* }}} */
 
@@ -72,7 +73,7 @@ ZEND_GET_MODULE(hello)
  */
 PHP_INI_BEGIN()
     STD_PHP_INI_ENTRY("hello.direction", "1", PHP_INI_ALL, OnUpdateBool, direction, zend_hello_globals, hello_globals)
-	PHP_INI_ENTRY("hello.greeting", "Hello World", PHP_INI_ALL, NULL)
+    PHP_INI_ENTRY("hello.greeting", "Hello World", PHP_INI_ALL, NULL)
 PHP_INI_END()
 /* }}} */
 
@@ -80,7 +81,7 @@ PHP_INI_END()
  */
 static void php_hello_init_globals(zend_hello_globals *hello_globals)
 {
-	hello_globals->direction = 1;
+    hello_globals->direction = 1;
 }
 /* }}} */
 
@@ -88,10 +89,10 @@ static void php_hello_init_globals(zend_hello_globals *hello_globals)
  */
 PHP_MINIT_FUNCTION(hello)
 {
-	ZEND_INIT_MODULE_GLOBALS(hello, php_hello_init_globals, NULL);
-	REGISTER_INI_ENTRIES();
-	
-	return SUCCESS;
+    ZEND_INIT_MODULE_GLOBALS(hello, php_hello_init_globals, NULL);
+    REGISTER_INI_ENTRIES();
+    
+    return SUCCESS;
 }
 /* }}} */
 
@@ -99,9 +100,9 @@ PHP_MINIT_FUNCTION(hello)
  */
 PHP_MSHUTDOWN_FUNCTION(hello)
 {
-	UNREGISTER_INI_ENTRIES();
-	
-	return SUCCESS;
+    UNREGISTER_INI_ENTRIES();
+    
+    return SUCCESS;
 }
 /* }}} */
 
@@ -109,8 +110,8 @@ PHP_MSHUTDOWN_FUNCTION(hello)
  */
 PHP_RINIT_FUNCTION(hello)
 {
-	HELLO_G(counter) = 0;
-	return SUCCESS;
+    HELLO_G(counter) = 0;
+    return SUCCESS;
 }
 /* }}} */
 
@@ -119,7 +120,7 @@ PHP_RINIT_FUNCTION(hello)
  */
 PHP_RSHUTDOWN_FUNCTION(hello)
 {
-	return SUCCESS;
+    return SUCCESS;
 }
 /* }}} */
 
@@ -127,13 +128,13 @@ PHP_RSHUTDOWN_FUNCTION(hello)
  */
 PHP_MINFO_FUNCTION(hello)
 {
-	php_info_print_table_start();
-	php_info_print_table_header(2, "hello support", "enabled");
-	php_info_print_table_end();
+    php_info_print_table_start();
+    php_info_print_table_header(2, "hello support", "enabled");
+    php_info_print_table_end();
 
-	/* Remove comments if you have entries in php.ini
-	DISPLAY_INI_ENTRIES();
-	*/
+    /* Remove comments if you have entries in php.ini
+    DISPLAY_INI_ENTRIES();
+    */
 }
 /* }}} */
 
@@ -142,7 +143,7 @@ PHP_MINFO_FUNCTION(hello)
  */
 PHP_FUNCTION(hello_world)
 {
-	RETURN_STRING(INI_STR("hello.greeting"), 1);
+    RETURN_STRING(INI_STR("hello.greeting"), 1);
 }
 /* }}} */
 
@@ -156,6 +157,24 @@ PHP_FUNCTION(hello_long)
         HELLO_G(counter)--;
     }
     RETURN_LONG(HELLO_G(counter));
+}
+/* }}} */
+
+/* {{{ return greeting message
+ */
+PHP_FUNCTION(hello_greetme)
+{
+    char *name;
+    int name_len;
+    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &name, &name_len) == FAILURE) {
+        RETURN_NULL();
+    }
+
+    php_printf("Hello ");
+    PHPWRITE(name, name_len);
+    php_printf("");
+
+    RETURN_TRUE;
 }
 /* }}} */
 /* The previous line is meant for vim and emacs, so it can correctly fold and 

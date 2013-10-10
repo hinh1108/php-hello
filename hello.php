@@ -29,5 +29,9 @@ if (extension_loaded($module)) {
         echo hello_long() . " ";
     }
     echo "\n";
+
+    echo "execute hello_greetme('php'):\n";
+    hello_greetme('php');
+    echo "\n";
 }
 ?>

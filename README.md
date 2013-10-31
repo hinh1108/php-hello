@@ -12,13 +12,17 @@ $ ./ext_skel --extname=hello
 
 Then make a few edits following tutorial[1].
 
-## PHP Source Code
+### Road Map
+
+Branch list is a cool tool for recording the learning road map, as branch name hints every key knowledge and it's order.  
+
+### PHP Source Code
 
 You can get it at [php.net](http://php.net/downloads.php).
 
-But i recommend using the [PHPBrew](https://github.com/c9s/phpbrew) to manage your PHP version.
+But I recommend using the [PHPBrew](https://github.com/c9s/phpbrew) to manage your PHP version.
 
-## Install
+### Install
 
 ```
 $ git clone git@git.corp.anjuke.com:liangshan/php-hello
@@ -28,7 +32,7 @@ $ ./configure
 $ make && make install
 ```
 
-## Example
+### Example
 
 just run
 
@@ -36,6 +40,6 @@ just run
 $ php hello.php
 ```
 
-## Reference
+### Reference
 
 * [1] : http://devzone.zend.com/303/extension-writing-part-i-introduction-to-php-and-zend/
